@@ -7,7 +7,7 @@
 using System.Linq;
 using System.Text;
 
-namespace UrlShortener.Helpers
+namespace UrlShortenerAPI.Helpers
 {
     /**
      * ShortURL: Bijective conversion between natural numbers (IDs) and short strings

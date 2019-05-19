@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UrlShortener.Models
+namespace UrlShortenerAPI.Models
 {
-    public class AppSettings
+    public class AppSettings : IAppSettings
     {
         public string ApplicationName { get; set; }
         public string Version { get; set; }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
-using UrlShortener.Models;
-using UrlShortener.Helpers;
-using UrlShortener.DataAccess;
+﻿using System;
 using Microsoft.Extensions.Options;
+using UrlShortenerAPI.Models;
+using UrlShortenerAPI.Helpers;
+using UrlShortenerAPI.DataAccess;
 
-namespace UrlShortener.Services
+
+namespace UrlShortenerAPI.Services
 {
     public class UrlService : IUrlService
     {

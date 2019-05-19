@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace UrlShortener.Helpers
+namespace UrlShortenerAPI.Helpers
 {
     public class LoggerImpl :ILogger
     {

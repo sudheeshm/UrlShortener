@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UrlShortener.Models;
+using UrlShortenerAPI.Models;
 
-namespace UrlShortener.Services
+namespace UrlShortenerAPI.Services
 {
     public interface IUrlService
     {

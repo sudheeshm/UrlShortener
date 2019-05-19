@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UrlShortener.Helpers
+namespace UrlShortenerAPI.Helpers
 {
     public interface ILogger
     {

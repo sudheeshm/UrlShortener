@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using UrlShortener.Services;
-using UrlShortener.Models;
+using UrlShortenerAPI.Services;
+using UrlShortenerAPI.Models;
 
-namespace UrlShortener
+namespace UrlShortenerAPI
 {
     public class Startup
     {

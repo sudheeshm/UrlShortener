@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using UrlShortener.Models;
+using UrlShortenerAPI.Models;
 
-namespace UrlShortener.DataAccess
+namespace UrlShortenerAPI.DataAccess
 {
     public static class DataDB
     {
