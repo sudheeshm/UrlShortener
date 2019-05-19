@@ -3,12 +3,19 @@ using System;
 using UrlShortener.Models;
 using UrlShortener.Helpers;
 using UrlShortener.DataAccess;
+using Microsoft.Extensions.Options;
 
 namespace UrlShortener.Services
 {
     public class UrlService : IUrlService
     {
         private readonly ILogger _logger = new LoggerImpl();
+        private readonly IOptions<AppSettings> _config;
+
+        public UrlService(IOptions<AppSettings> config)
+        {
+            _config = config;
+        }
 
         /// <summary>
         /// 
@@ -35,9 +42,16 @@ namespace UrlShortener.Services
         public UrlData GetByShortUrl(string shortUrl)
         {
             _logger.LogDebug("GetByShortUrl() called");
-            var urlData = DataDB.ShortUrls.Find(x => x.ShortUrl == shortUrl);
-            if (urlData != null)
-                return urlData;
+
+            if (!String.IsNullOrEmpty(shortUrl))
+            {
+                if (!shortUrl.Contains(_config.Value.UrlBase))
+                    shortUrl = _config.Value.UrlBase + shortUrl;
+
+                var urlData = DataDB.ShortUrls.Find(x => x.ShortUrl == shortUrl);
+                if (urlData != null)
+                    return urlData;
+            }
 
             //no data found, return an error
             return getErrorUrlData("", "no data found for this short url");
@@ -62,7 +76,8 @@ namespace UrlShortener.Services
                 //create a new entry as we don't have this in the db
                 var db = DataDB.ShortUrls;
                 var id = db.Count > 0 ? db[db.Count - 1].Id + 1 : DataDB.StartId;
-                var shortUrl = ShortUrlHelper.Encode(id);
+                var shortUrl = _config.Value.UrlBase + ShortUrlHelper.Encode(id);
+
                 var urlData = new UrlData
                 {
                     LongUrl = longUrl,

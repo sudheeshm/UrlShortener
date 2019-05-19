@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using UrlShortenerApp.Models;
 using Microsoft.Extensions.Options;
 using UrlShortenerApp.Helpers;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace UrlShortenerApp.Controllers
 {
@@ -24,13 +26,55 @@ namespace UrlShortenerApp.Controllers
             return View();
         }
 
+        [HttpGet("{shorturl}")]
+        public IActionResult Get(string shortUrl)
+        {
+            try
+            {
+                var apiUrl = _config.Value.ApiUrl + "api/shorturls/v1/shorturl?url=" + shortUrl;
+                var result = ApiGateway.SendGetRequestToUrl(apiUrl, "", "");
+
+                var urlData = JsonConvert.DeserializeObject<UrlData>(result);
+                if(urlData.Status == "ok")
+                    return Redirect(urlData.LongUrl);
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+
+            return Redirect(shortUrl);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(string longUrl)
         {
-            var apiUrl = _config.Value.ApiUrl + "/" + longUrl;
-            var result = ApiGateway.PostRequestToUrl(apiUrl, "", "");
-            return View();
+            try
+            {
+                var apiUrl = _config.Value.ApiUrl + "api/shorturls/v1/urlshortener?url=" + longUrl;
+                var result = ApiGateway.SendPostRequestToUrl(apiUrl, "", "");
+
+                var shortUrl = JsonConvert.DeserializeObject<UrlData>(result);
+                return RedirectToAction(actionName: "Result", routeValues: shortUrl);
+
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
+        public IActionResult Result(UrlData urlData)
+        {
+            if (urlData == null || urlData.Status != "ok")
+            {
+                return NotFound();
+            }
+
+            return View(urlData);
         }
     }
 }

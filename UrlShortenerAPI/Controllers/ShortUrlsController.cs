@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrlShortener.Models;
 using UrlShortener.Services;
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace UrlShortener.Controllers
 {
@@ -16,19 +16,20 @@ namespace UrlShortener.Controllers
             _service = service;
         }
 
-        [HttpGet("v1/{shorturl}")]
-        public ActionResult<UrlData> Get(string shorturl)
+        [HttpGet("v1/shorturl")]
+        public ActionResult<UrlData> GetByShortUrl(string url)
         {
-            return _service.GetByShortUrl(shorturl);
+            return _service.GetByShortUrl(url);
 
             //var rediretUrl =  urlData != null ? urlData.LongUrl : shorturl;
             //return Redirect(rediretUrl);
         }
 
-        [HttpGet("v1/{longurl}")]
-        public ActionResult<UrlData> GetByLongUrl(string longurl)
+        [HttpPost("v1/longurl")]
+        public ActionResult<UrlData> GetByLongUrl([FromBody] JObject param)
         {
-            return _service.GetByLongUrl(longurl);
+            var url = (param != null && param["longurl"] != null) ? param["longurl"].ToString() : "";
+            return _service.GetByLongUrl(url);
         }
 
         [HttpPost]

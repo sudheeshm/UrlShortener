@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using UrlShortener.Services;
+using UrlShortener.Models;
 
 namespace UrlShortener
 {
@@ -27,6 +28,9 @@ namespace UrlShortener
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add our Config object so it can be injected
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen( c =>
             {
