@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace UrlShortenerAPI.Models
 {
     public interface IAppSettings
     {
+        string ApplicationName { get; set; }
+        string Version { get; set; }
+        string UrlBase { get; set; }
     }
 }
