@@ -1,0 +1,22 @@
+﻿@model ShortUrl
+@{
+    ViewData["Title"] = "Sudheesh URL Shortener";
+}
+
+<br />
+
+<div class="jumbotron">
+    <p>Please enter the url </p>
+    <br />
+
+    <form asp-action="Create">
+        <div class="form-horizontal">
+            <div class="input-group input-group-sm">
+                <input asp-for="LongUrl" class="form-control" placeholder="URL to be shorten..." />
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-primary" type="submit">Submit</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>

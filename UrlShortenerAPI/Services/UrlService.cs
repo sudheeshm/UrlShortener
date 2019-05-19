@@ -8,6 +8,8 @@ namespace UrlShortener.Services
 {
     public class UrlService : IUrlService
     {
+        private readonly ILogger _logger = new LoggerImpl();
+
         /// <summary>
         /// 
         /// </summary>
@@ -15,6 +17,8 @@ namespace UrlShortener.Services
         /// <returns></returns>
         public UrlData GetByLongUrl(string longUrl)
         {
+            _logger.LogDebug("GetByLongUrl() called");
+
             var urlData = DataDB.ShortUrls.Find(x => x.LongUrl == longUrl);
             if (urlData != null)
                 return urlData;
@@ -30,6 +34,7 @@ namespace UrlShortener.Services
         /// <returns></returns>
         public UrlData GetByShortUrl(string shortUrl)
         {
+            _logger.LogDebug("GetByShortUrl() called");
             var urlData = DataDB.ShortUrls.Find(x => x.ShortUrl == shortUrl);
             if (urlData != null)
                 return urlData;
@@ -45,6 +50,8 @@ namespace UrlShortener.Services
         /// <returns></returns>
         public UrlData CreateShortUrl(string longUrl)
         {
+            _logger.LogDebug("CreateShortUrl() called");
+
             if (Uri.IsWellFormedUriString(longUrl, UriKind.Absolute))
             {
                 //if we already computed for this url, get it from the db
