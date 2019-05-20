@@ -7,35 +7,35 @@
 
 <div class="jumbotron">
     <br />
-    <ul>
-        <li>
-            <span class="col-md-2">
-                <strong>URL Id:</strong>
-            </span>
-            @Model.Id
-        </li>
-        <li>
-            <span class="col-md-2">
-                <strong>Long URL:</strong>
-            </span>
-            <a href="@Model.LongUrl">
-                @Model.LongUrl
-            </a>
-        </li>
-        <li>
-            <span class="col-md-2">
-                <strong>Short URL:</strong>
-            </span>
 
-            <a href="@Model.ShortUrl">
-                @Model.ShortUrl
-            </a>
-
-            @*<a asp-controller="ShortUrls" asp-action="RedirectTo" asp-route-path="@Model.ShortUrl">
-                http://localhost:5000/ShortUrls/RedirectTo/@ViewData["Path"]
-            </a>*@
-        </li>
-    </ul>
+    <table class="table table-sm">
+        <tbody>
+            <tr>
+                <td>
+                    <strong>URL Id:</strong>
+                </td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td><strong>Long URL:</strong></td>
+                <td>
+                    <a href="@Model.LongUrl">
+                        @Model.LongUrl
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>                
+                    <strong>Short URL:</strong>
+                </td>
+                <td>
+                    <a href="@Model.ShortUrl">
+                        @Model.ShortUrl
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 

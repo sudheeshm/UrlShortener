@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace UrlShortenerApp.Helpers
 {
     public static class ApiGateway
     {
 
-        public static string SendPostRequestToUrl(string url, string user, string password)
+        public static string SendPostRequestToUrl(string url, JObject jsonData, string user, string password)
         {
             var response = "";
             try
             {
-                var taskitem = Task.Run(() => postRequestToUrl(url, user, password));
+                var taskitem = Task.Run(() => postRequestToUrl(url, jsonData, user, password));
                 taskitem.Wait();
 
                 response = taskitem.Result;
@@ -44,10 +43,9 @@ namespace UrlShortenerApp.Helpers
             return response;
         }
 
-        private static async Task<string> postRequestToUrl(string url, string user, string password)
+        private static async Task<string> postRequestToUrl(string url, JObject jsonData, string user, string password)
         {
             var result = @"'status' : 'error'";
-            string jsonInString = "";
 
             try
             {
@@ -56,7 +54,9 @@ namespace UrlShortenerApp.Helpers
                     client.BaseAddress = new Uri(url);
 
                     //TODO: add authentication here
-                    var response = client.PostAsync(url, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+
+                    var content = new StringContent(jsonData.ToString(), Encoding.UTF8, "application/json");
+                    var response = client.PostAsync(url, content);
                     result = await response.Result.Content.ReadAsStringAsync();
                 }
             }

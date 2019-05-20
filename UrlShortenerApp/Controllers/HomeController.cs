@@ -54,8 +54,9 @@ namespace UrlShortenerApp.Controllers
         {
             try
             {
-                var apiUrl = _config.Value.ApiUrl + "api/shorturls/v1/urlshortener?url=" + longUrl;
-                var result = ApiGateway.SendPostRequestToUrl(apiUrl, "", "");
+                var apiUrl = _config.Value.ApiUrl + "api/shorturls/v1/urlshortener";
+                var jsonData = JObject.Parse("{'longurl': '" + longUrl + "'}");
+                var result = ApiGateway.SendPostRequestToUrl(apiUrl, jsonData, "", "");
 
                 var shortUrl = JsonConvert.DeserializeObject<UrlData>(result);
                 return RedirectToAction(actionName: "Result", routeValues: shortUrl);
