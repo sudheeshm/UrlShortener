@@ -70,7 +70,7 @@ namespace UrlShortenerApp.Controllers
 
         public IActionResult Result(UrlData urlData)
         {
-            if (urlData == null || urlData.Status != "ok")
+            if (urlData == null )
             {
                 return NotFound();
             }
