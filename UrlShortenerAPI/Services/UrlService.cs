@@ -10,11 +10,11 @@ namespace UrlShortenerAPI.Services
     public class UrlService : IUrlService
     {
         private readonly ILogger _logger = new LoggerImpl();
-        private readonly IOptions<AppSettings> _config;
+        private readonly AppSettings _config;
 
         public UrlService(IOptions<AppSettings> config)
         {
-            _config = config;
+            _config = config.Value;
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace UrlShortenerAPI.Services
 
             if (!String.IsNullOrEmpty(shortUrl))
             {
-                if (!shortUrl.Contains(_config.Value.UrlBase))
-                    shortUrl = _config.Value.UrlBase + shortUrl;
+                if (!shortUrl.Contains(_config.UrlBase))
+                    shortUrl = _config.UrlBase + shortUrl;
 
                 var urlData = DataDB.ShortUrls.Find(x => x.ShortUrl == shortUrl);
                 if (urlData != null)
@@ -76,7 +76,7 @@ namespace UrlShortenerAPI.Services
                 //create a new entry as we don't have this in the db
                 var db = DataDB.ShortUrls;
                 var id = db.Count > 0 ? db[db.Count - 1].Id + 1 : DataDB.StartId;
-                var shortUrl = _config.Value.UrlBase + ShortUrlHelper.Encode(id);
+                var shortUrl = _config.UrlBase + ShortUrlHelper.Encode(id);
 
                 var urlData = new UrlData
                 {
