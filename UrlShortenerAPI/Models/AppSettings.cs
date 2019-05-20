@@ -5,7 +5,7 @@ namespace UrlShortenerAPI.Models
     {
         public string ApplicationName { get; set; }
         public string Version { get; set; }
-        public string UrlBase { get; set; }
+        public string UrlBase { get; set; } = "";
 
     }
 }

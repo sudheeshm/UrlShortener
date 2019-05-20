@@ -33,6 +33,22 @@ namespace UrlShortenerApiTest
             Assert.NotNull(actual);
         }
 
+        [Theory]
+        [InlineData("https://www.google.com", "ok")]
+        [InlineData("https://www.nuget.org/", "ok")]
+        public void CreateShortUrlsWithValidData(string longUrl, string expectedStatus)
+        {
+            //arrange
+            var urlService = geturlService();
+
+            //act
+            var actual = urlService.CreateShortUrl(longUrl).Status;
+
+            //assert
+            Assert.Equal(actual, expectedStatus);
+        }
+
+
         private UrlService geturlService()
         {
             IOptions<AppSettings> someOptions = Options.Create<AppSettings>(new AppSettings());
