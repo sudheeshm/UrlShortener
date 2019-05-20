@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortenerApp.Models;
 using Microsoft.Extensions.Options;
-using UrlShortenerApp.Helpers;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using UrlShortenerApp.Helpers;
+using UrlShortenerApp.Models;
 
 namespace UrlShortenerApp.Controllers
 {

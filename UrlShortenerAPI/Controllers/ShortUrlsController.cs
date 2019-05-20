@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using UrlShortenerAPI.Models;
 using UrlShortenerAPI.Services;
-using Newtonsoft.Json.Linq;
 
 namespace UrlShortenerAPI.Controllers
 {
